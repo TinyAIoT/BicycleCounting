@@ -299,7 +299,7 @@ class QuantizationAwareTrainingPipeline:
         # init model run meta data
         self.dataset_config: DataConfig = self._load_data_config()
         self.run_name = self._generate_run_name()
-        self.wandb_run = self._init_wandb()
+        #self.wandb_run = self._init_wandb()
 
     def run(self) -> None:
         logger.info("Starting QAT pipeline")
@@ -435,75 +435,75 @@ class QuantizationAwareTrainingPipeline:
             (output_dir / sub_dir).mkdir(parents=True, exist_ok=True)
         return output_dir
 
-    @staticmethod
-    def _wandb_login() -> None:
-        wandb.login(anonymous="allow", key=os.environ["WANDB_API_KEY"], timeout=60)
+    # @staticmethod
+    # def _wandb_login() -> None:
+    #     #wandb.login(anonymous="allow", key=os.environ["WANDB_API_KEY"], timeout=60)
 
-    def _init_wandb(self) -> wandb.sdk.wandb_run.Run:
-        return wandb.init(
-            project=WANDB_PROJECT,
-            name=self.run_name,
-            tags=["QAT"],
-            config=self.config.model_dump(),
-            anonymous="allow",
-            force=True,
-        )
+    # def _init_wandb(self) -> wandb.sdk.wandb_run.Run:
+    #     return wandb.init(
+    #         project=WANDB_PROJECT,
+    #         name=self.run_name,
+    #         tags=["QAT"],
+    #         config=self.config.model_dump(),
+    #         anonymous="allow",
+    #         force=True,
+    #     )
 
-    def _wandb_log_epoch(
-        self,
-        epoch: int,
-        train_loss: float,
-        val_metrics: DetMetrics,
-        espdl_model_path: Path,
-        native_model_path: Path,
-    ) -> None:
-        """
-        Logs epoch data to Weights & Biases
-        :param epoch: current epoch
-        :param train_loss: current training loss
-        :param val_metrics: validation metrics
-        :param espdl_model_path: path to .espdl model file of the current epoch
-        :param native_model_path: path to .native model file of the current epoch
-        """
-        wandb.log(
-            data={
-                "train_loss": train_loss,
-                "val_metrics": {
-                    "curves": {
-                        curve: curve_results
-                        for curve, curve_results in zip(val_metrics.curves, val_metrics.curves_results)
-                    },
-                    **val_metrics.results_dict,
-                }
-                if val_metrics
-                else {},
-            },
-            commit=True,
-        )
-        # log .espdl model
-        artifact = wandb.Artifact(espdl_model_path.stem, type="model", metadata=self.config.model_dump())
-        artifact.add_file(espdl_model_path.as_posix())
-        # log .native model
-        artifact.add_file(native_model_path.as_posix())
-        self.wandb_run.log_artifact(artifact, aliases=[f"epoch_{epoch}"])
+    # def _wandb_log_epoch(
+    #     self,
+    #     epoch: int,
+    #     train_loss: float,
+    #     val_metrics: DetMetrics,
+    #     espdl_model_path: Path,
+    #     native_model_path: Path,
+    # ) -> None:
+    #     """
+    #     Logs epoch data to Weights & Biases
+    #     :param epoch: current epoch
+    #     :param train_loss: current training loss
+    #     :param val_metrics: validation metrics
+    #     :param espdl_model_path: path to .espdl model file of the current epoch
+    #     :param native_model_path: path to .native model file of the current epoch
+    #     """
+    #     wandb.log(
+    #         data={
+    #             "train_loss": train_loss,
+    #             "val_metrics": {
+    #                 "curves": {
+    #                     curve: curve_results
+    #                     for curve, curve_results in zip(val_metrics.curves, val_metrics.curves_results)
+    #                 },
+    #                 **val_metrics.results_dict,
+    #             }
+    #             if val_metrics
+    #             else {},
+    #         },
+    #         commit=True,
+    #     )
+    #     # log .espdl model
+    #     artifact = wandb.Artifact(espdl_model_path.stem, type="model", metadata=self.config.model_dump())
+    #     artifact.add_file(espdl_model_path.as_posix())
+    #     # log .native model
+    #     artifact.add_file(native_model_path.as_posix())
+    #     self.wandb_run.log_artifact(artifact, aliases=[f"epoch_{epoch}"])
 
-    def _wandb_log_best_model(self, epoch: int, best_espdl_model_path: Path, best_native_model_path: Path) -> None:
-        """
-        Logs/overwrites the best-performing model of the current model run to Weights & Biases
-        :param epoch: current epoch
-        :param best_espdl_model_path: path to best .espdl model file
-        :param best_native_model_path: path to best .native model file
-        """
-        # log .espdl model
-        artifact = wandb.Artifact(
-            best_espdl_model_path.stem,
-            type="model",
-            metadata=self.config.model_dump(),
-        )
-        artifact.add_file(best_espdl_model_path.as_posix())
-        artifact.add_file(best_native_model_path.as_posix())
-        self.wandb_run.log_artifact(best_espdl_model_path, aliases=["best", f"epoch_{epoch}"])
-
-    def finish_wandb(self) -> None:
-        wandb.finish()
-        logger.info(f"Training completed, view results under: {self.wandb_run.url}")
+    # def _wandb_log_best_model(self, epoch: int, best_espdl_model_path: Path, best_native_model_path: Path) -> None:
+    #     """
+    #     Logs/overwrites the best-performing model of the current model run to Weights & Biases
+    #     :param epoch: current epoch
+    #     :param best_espdl_model_path: path to best .espdl model file
+    #     :param best_native_model_path: path to best .native model file
+    #     """
+    #     # log .espdl model
+    #     artifact = wandb.Artifact(
+    #         best_espdl_model_path.stem,
+    #         type="model",
+    #         metadata=self.config.model_dump(),
+    #     )
+    #     artifact.add_file(best_espdl_model_path.as_posix())
+    #     artifact.add_file(best_native_model_path.as_posix())
+    #     self.wandb_run.log_artifact(best_espdl_model_path, aliases=["best", f"epoch_{epoch}"])
+    #
+    # def finish_wandb(self) -> None:
+    #     wandb.finish()
+    #     logger.info(f"Training completed, view results under: {self.wandb_run.url}")

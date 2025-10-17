@@ -23,7 +23,8 @@ def train(config):
         trainer.train()
         trainer.validate()
     finally:
-        trainer.finish_run()
+        print("No finish run")
+        #trainer.finish_run()
 
 
 @cli.command()
@@ -37,4 +38,5 @@ def qat(config: Path):
     try:
         pipeline.run()
     finally:
-        pipeline.finish_wandb()
+        print("The END")
+        #pipeline.finish_wandb()

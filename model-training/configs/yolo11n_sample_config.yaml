@@ -19,9 +19,17 @@ train_args:
   cache: true
   verbose: true
   device: mps
-  fraction: 0.2
-  batch: 16
+  batch: 0.7
+  nbs: 32
   multi_scale: true
-  classes:
-    - 1
-# Augmentation Parameters
+  workers: 7
+  amp: true
+  dropout: 0.1
+  # Augmentation Parameters
+  hsv_s: 0.7    # hue
+  hsv_h: 0.015  # saturation
+  hsv_v: 0.5    # brightness
+  degrees: 180
+  flipud: 0.1
+  fliplr: 0.5
+  mosaic: 1.0

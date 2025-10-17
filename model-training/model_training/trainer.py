@@ -40,7 +40,7 @@ class Trainer:
         self.run_name = self._generate_run_name()
         self.output_dir: Path = Path(self.run_config.output_dir) / self.run_name
 
-        self._init_wandb()
+        #self._init_wandb()
         if self.run_config.data_split_args:
             self._split_dataset(split_args=self.run_config.data_split_args, data_path=self.data_config.path)
 
@@ -88,10 +88,10 @@ class Trainer:
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         return f"{self.run_config.project_name}_{self.model_name}_{timestamp}"
 
-    def _init_wandb(self) -> None:
-        """Creates W&B session"""
-        wandb.login(anonymous="allow", key=os.environ["WANDB_API_KEY"])
-        add_wandb_callback(self.model, enable_model_checkpointing=True)
+    #def _init_wandb(self) -> None:
+        #"""Creates W&B session"""
+        #wandb.login(anonymous="allow", key=os.environ["WANDB_API_KEY"])
+        #add_wandb_callback(self.model, enable_model_checkpointing=True)
 
     def _load_model(self) -> YOLO:
         """
@@ -136,7 +136,7 @@ class Trainer:
         result_logs = "\n".join(f"{metric}: {value}" for metric, value in metrics.results_dict.items())
         logger.info(result_logs)
 
-    @staticmethod
-    def finish_run() -> None:
-        """Log out from W&B session"""
-        wandb.finish()
+    # @staticmethod
+    # def finish_run() -> None:
+    #     """Log out from W&B session"""
+    #     wandb.finish()

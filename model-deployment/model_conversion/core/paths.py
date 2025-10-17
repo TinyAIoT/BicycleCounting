@@ -21,6 +21,6 @@ BASE_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_base_model"
 QUANTIZED_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_quantized_model"
 ESP_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_esp_model"
 
-BASE_MODEL_PT_PATH: Final[Path] = MODELS_DIR / "yolo11n.pt"
+BASE_MODEL_PT_PATH: Final[Path] = MODELS_DIR / "best.pt"
 ONNX_MODEL_PATH: Final[Path] = MODELS_DIR / "yolo11n.onnx"
 ESPDL_MODEL_PATH: Final[Path] = MODELS_DIR / "model.espdl"
