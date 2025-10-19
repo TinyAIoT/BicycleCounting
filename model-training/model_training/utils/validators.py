@@ -20,7 +20,7 @@ from ultralytics.utils.torch_utils import (
     smart_inference_mode,
 )
 
-from model_training.utils.quantization import quantize_yolo
+from utils.quantization import quantize_yolo
 
 
 class QuantizedModelValidator(DetectionValidator):

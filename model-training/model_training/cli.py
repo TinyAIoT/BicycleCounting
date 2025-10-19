@@ -2,9 +2,9 @@ from pathlib import Path
 
 import click
 
-from model_training.core.schemas import QuantizationAwareTrainingConfig
-from model_training.qat import QuantizationAwareTrainingPipeline
-from model_training.trainer import Trainer
+from core.schemas import QuantizationAwareTrainingConfig
+from qat import QuantizationAwareTrainingPipeline
+from trainer import Trainer
 
 
 @click.group()

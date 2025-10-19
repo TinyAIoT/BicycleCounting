@@ -1,4 +1,4 @@
-from model_training.cli import train
+from cli import train
 
 __version__ = "0.1.0"
 

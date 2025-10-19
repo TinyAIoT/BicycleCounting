@@ -5,7 +5,7 @@ from typing import Any, Literal, Optional, Sequence
 import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from model_training.core.constants import TXT_ENCODING
+from core.constants import TXT_ENCODING
 
 # Arguments
 
@@ -13,7 +13,7 @@ from model_training.core.constants import TXT_ENCODING
 class YoloTrainArgs(BaseModel):
     data: str = Field(..., description="Path to dataset YAML file")
     epochs: int = Field(..., gt=0, description="Number of training epochs")
-    device: Optional[int | str] = Field("cpu", description="Device to train on")
+    device: Optional[str] = Field("cpu", description="Device to train on")
     val: Optional[bool] = Field(True, description="Enable validation")
     plots: Optional[bool] = Field(False, description="Save validation plots during training")
 
@@ -65,8 +65,8 @@ class QuantizationAwareTrainingArgs(BaseModel):
 
 class BaseConfig(BaseModel):
     project_name: str = Field(..., description="Name of the model run")
-    output_dir: str | PathLike = Field(..., description="Directory to save model runs")
-    model: str | PathLike = Field(..., description="YOLO model name or path to weights")
+    output_dir: str = Field(..., description="Directory to save model runs")
+    model: str = Field(..., description="YOLO model name or path to weights")
 
 
 class TrainConfig(BaseConfig):

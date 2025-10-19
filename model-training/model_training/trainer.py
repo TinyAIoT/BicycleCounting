@@ -12,8 +12,8 @@ from ultralytics import YOLO
 from ultralytics.data.split import autosplit
 # isort: on
 
-from model_training.core.constants import WANDB_PROJECT
-from model_training.core.schemas import DataConfig, DataSplitArgs, TrainConfig
+from core.constants import WANDB_PROJECT
+from core.schemas import DataConfig, DataSplitArgs, TrainConfig
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)

@@ -7,7 +7,7 @@ from typing import Any, Literal, Optional, Sequence
 
 # isort: off
 import onnxruntime as ort
-import ppq.lib as PFL
+# import ppq.lib as PFL
 import torch
 import yaml
 from ppq.core import TargetPlatform
@@ -21,17 +21,18 @@ from tqdm import tqdm
 from ultralytics import YOLO
 from ultralytics.utils.metrics import DetMetrics
 import wandb
+import ppq.lib as PFL
 # isort: on
 
-from model_training.core.constants import TXT_ENCODING, WANDB_PROJECT
-from model_training.core.schemas import (
+from core.constants import TXT_ENCODING, WANDB_PROJECT
+from core.schemas import (
     DataConfig,
     QuantizationAwareTrainingArgs,
     QuantizationAwareTrainingConfig,
 )
-from model_training.utils.datasets import CalibrationDataset, TrainDataset
-from model_training.utils.quantization import QuantizationSetup
-from model_training.utils.validators import QuantDetectionValidator
+from utils.datasets import CalibrationDataset, TrainDataset
+from utils.quantization import QuantizationSetup
+from utils.validators import QuantDetectionValidator
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
