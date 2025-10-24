@@ -11,7 +11,7 @@ from pydantic import ValidationError
 from ultralytics import YOLO
 from ultralytics.data.split import autosplit
 # isort: on
-
+import torch
 from core.constants import WANDB_PROJECT
 from core.schemas import DataConfig, DataSplitArgs, TrainConfig
 
@@ -127,6 +127,8 @@ class Trainer:
             logger.error(f"No best model found at {best_model_path.as_posix()}")
             return
         best_model = YOLO(best_model_path.as_posix())
+        print("give device")
+        print(torch.cuda.device_count())
         metrics = best_model.val(
             project=WANDB_PROJECT,
             name=(Path(self.run_name) / "validation").as_posix(),
