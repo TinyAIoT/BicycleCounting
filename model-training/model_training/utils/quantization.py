@@ -7,7 +7,7 @@ import ppq.lib as PFL
 import torch
 from onnxsim import simplify
 from ppq import QuantizationSettingFactory
-from ppq.api import quantize_onnx_model
+from ppq.api import espdl_quantize_onnx, get_target_platform
 from ppq.api.interface import load_onnx_graph
 from ppq.core import TargetPlatform
 from ppq.core.quant import QuantizationVisibility
@@ -60,7 +60,7 @@ class QuantizationSetup:
         if not self.graph:
             raise ValueError("Graph must be set before quantizer setup")
 
-        platform = target_platform(TARGET_PLATFORM, self.num_bits)
+        platform = get_target_platform(TARGET_PLATFORM, self.num_bits)
         self.quantizer = PFL.Quantizer(platform=platform, graph=self.graph)
 
     def create_dispatching_table(self) -> dict[str, TargetPlatform]:
@@ -209,16 +209,16 @@ def quantize_yolo(
 
     quant_setting.dispatching_table.append(
         operation='/model.2/cv2/conv/Conv',
-        platform=target_platform(TARGET_PLATFORM, 16)
+        platform=get_target_platform(TARGET_PLATFORM, 16)
     )
     quant_setting.dispatching_table.append(
         operation='/model.3/conv/Conv',
-        platform=target_platform(TARGET_PLATFORM, 16)
+        platform=get_target_platform(TARGET_PLATFORM, 16)
     )
 
     quant_setting.dispatching_table.append(
         operation='/model.4/cv2/conv/Conv',
-        platform=target_platform(TARGET_PLATFORM, 16)
+        platform=get_target_platform(TARGET_PLATFORM, 16)
     )
 
     quant_setting.weight_split = True
@@ -229,7 +229,7 @@ def quantize_yolo(
     """
     x = calibration_dataset[0].unsqueeze(0)
 
-    quant_ppq_graph = quantize_onnx_model(
+    quant_ppq_graph = espdl_quantize_onnx(
         onnx_import_file=onnx_model_path.as_posix(),
         espdl_export_file=espdl_model_path.as_posix(),
         calib_dataloader=dataloader,
