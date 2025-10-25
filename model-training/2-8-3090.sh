@@ -28,5 +28,5 @@ ml PyTorch/1.12.1-CUDA-11.7.0
 pip install -r requirements.txt
 export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 cd ~/leezencounter/model-training/model_training/
-pip install ppq==0.6.6
+# pip install ppq==0.6.6
 python __main__.py ../configs/yolo11n_sample_config.yaml
