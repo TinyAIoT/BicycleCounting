@@ -4,15 +4,13 @@ from datetime import datetime
 from pathlib import Path
 
 # isort: off
-import wandb
-from wandb.integration.ultralytics import add_wandb_callback
 import yaml
 from pydantic import ValidationError
 from ultralytics import YOLO
 from ultralytics.data.split import autosplit
 # isort: on
 
-from model_training.core.constants import WANDB_PROJECT
+from model_training.core.constants import PROJECT_NAME
 from model_training.core.schemas import DataConfig, DataSplitArgs, TrainConfig
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -40,7 +38,6 @@ class Trainer:
         self.run_name = self._generate_run_name()
         self.output_dir: Path = Path(self.run_config.output_dir) / self.run_name
 
-        #self._init_wandb()
         if self.run_config.data_split_args:
             self._split_dataset(split_args=self.run_config.data_split_args, data_path=self.data_config.path)
 
@@ -88,11 +85,6 @@ class Trainer:
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         return f"{self.run_config.project_name}_{self.model_name}_{timestamp}"
 
-    #def _init_wandb(self) -> None:
-        #"""Creates W&B session"""
-        #wandb.login(anonymous="allow", key=os.environ["WANDB_API_KEY"])
-        #add_wandb_callback(self.model, enable_model_checkpointing=True)
-
     def _load_model(self) -> YOLO:
         """
         Loads Ultralytics YOLO model from YAML config
@@ -110,7 +102,7 @@ class Trainer:
         train_args = self.run_config.train_args.model_dump()
         train_args.update(
             {
-                "project": WANDB_PROJECT,
+                "project": PROJECT_NAME,
                 "name": self.run_name,
             }
         )
@@ -122,21 +114,16 @@ class Trainer:
         Validates best-performing YOLO model on test set.
         :return: None
         """
-        best_model_path = Path(WANDB_PROJECT) / self.run_name / "weights" / "best.pt"
+        best_model_path = Path(PROJECT_NAME) / self.run_name / "weights" / "best.pt"
         if not best_model_path.exists():
             logger.error(f"No best model found at {best_model_path.as_posix()}")
             return
         best_model = YOLO(best_model_path.as_posix())
         metrics = best_model.val(
-            project=WANDB_PROJECT,
+            project=PROJECT_NAME,
             name=(Path(self.run_name) / "validation").as_posix(),
             data=self.run_config.train_args.data,
             **self.run_config.val_args.model_dump(),  # type: ignore
         )
         result_logs = "\n".join(f"{metric}: {value}" for metric, value in metrics.results_dict.items())
         logger.info(result_logs)
-
-    # @staticmethod
-    # def finish_run() -> None:
-    #     """Log out from W&B session"""
-    #     wandb.finish()

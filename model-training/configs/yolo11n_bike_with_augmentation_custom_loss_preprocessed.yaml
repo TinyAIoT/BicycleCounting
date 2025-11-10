@@ -10,7 +10,7 @@ train_args:
   task: detect
   # yamllint disable-line rule:line-length
   data: ./datasets/combined_preprocessed/YOLO/combined_preprocessed_yolo_dataset.yaml
-  epochs: 300
+  epochs: 700
   patience: 200
   save: true
   val: true
@@ -19,8 +19,8 @@ train_args:
   pretrained: true
   cache: false
   verbose: true
-  device: cuda
-  batch: 16
+  device: 0
+  batch: 8
   nbs: 16
   multi_scale: true
   workers: 4
@@ -29,10 +29,10 @@ train_args:
   classes:
     - 0
   # Loss function parameters
-  dfl: 2.0
-  kobj: 3.0
-  box: 5.0
-  cls: 0.3
+  dfl: 2.5
+  # kobj: 3.0
+  box: 10.0
+  cls: 0.1
   # Augmentation Parameters
   hsv_s: 0.7    # hue
   hsv_h: 0.015  # saturation

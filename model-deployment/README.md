@@ -15,7 +15,7 @@ This sub-repository contains all the code required for model conversion & compre
 ├── model_conversion          # Python code for model conversion (.pt -> .onnx -> .espdl)
 │   ├── core                  # config constants and paths
 │   └── utils                 # auxiliary methods and function for model conversion and data preparation
-├── models -> ../model-training/models    # sym link to models directory (synced by DVC)
+├── models -> ../model-training/models    # sym link to models directory 
 ├── notebooks                 # ignored directory containing .ipynb notebook files for exploration
 └── yolo11_detect             # ESP-IDF project directory, containing C/C++ code and IDF project files
     ├── build
@@ -28,7 +28,6 @@ This sub-repository contains all the code required for model conversion & compre
   
       uv sync
 
-- Ensure you have pulled the dvc dataset (cf. [README in model-training sub-repo](../model-training/README.md))
 - Put a `yolo11n.pt` model (trained-model) in the `model-deployment/coco_detect/models/` folder
 - Optional: Change parameters of paths and constants in `model-deployment/model_conversion/core/`
 

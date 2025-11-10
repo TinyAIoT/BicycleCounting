@@ -1,7 +1,0 @@
-[core]
-    analytics = false
-    remote = tinyaiot
-['remote "tinyaiot"']
-    url = s3://tinyaiot-storage
-    endpointurl = https://fra1.digitaloceanspaces.com
-    region = fra1

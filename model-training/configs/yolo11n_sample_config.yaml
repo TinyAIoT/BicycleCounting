@@ -1,5 +1,5 @@
 ---
-project_name: saddle_detection
+project_name: bike_detection
 output_dir: runs/
 model: models/yolo11n.pt
 
@@ -9,7 +9,7 @@ train_args:
   mode: train
   task: detect
   # yamllint disable-line rule:line-length
-  data: ./datasets/esp_camera/geoinformatics_institute/20250523/YOLO/geoinformatics_institute_yolo_dataset.yaml
+  data: ./datasets/combined_preprocessed/YOLO/combined_preprocessed_yolo_dataset.yaml
   epochs: 1
   save: true
   val: true
@@ -18,7 +18,6 @@ train_args:
   pretrained: true
   cache: true
   verbose: true
-  device: mps
   batch: 0.7
   nbs: 32
   multi_scale: true

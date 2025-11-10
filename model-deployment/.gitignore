@@ -183,11 +183,6 @@ cython_debug/
 # VS Code stuff
 .vscode/
 
-# dvc-tracked files and folders
-/data
-/models
-/datasets
-
 # images
 *.jpg
 *.jpeg

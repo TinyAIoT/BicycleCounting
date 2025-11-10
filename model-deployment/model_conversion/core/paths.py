@@ -6,15 +6,15 @@ ROOT_DIR: Final[Path] = Path(__file__).parent.parent.resolve()
 # Main source and output directories
 CORE_DIR: Final[Path] = ROOT_DIR / "core"
 DATA_DIR: Final[Path] = ROOT_DIR.parent / "data"
-DVC_DATASETS_DIR: Final[Path] = ROOT_DIR.parent.parent / "model-training" / "datasets"
+DATASETS_DIR: Final[Path] = ROOT_DIR.parent.parent / "model-training" / "datasets"
 #MODELS_DIR: Final[Path] = ROOT_DIR.parent / "models"
 MODELS_DIR: Final[Path] = ROOT_DIR.parent / "coco_detect" / "models"
 UTILS_DIR: Final[Path] = ROOT_DIR / "utils"
 
 
 CALIBRATION_IMAGE_DIR: Final[Path] = DATA_DIR / "calib_images_compressed"
-ORIGINAL_IMAGE_DIR: Final[Path] = DVC_DATASETS_DIR / "combined" / "YOLO" / "images"
-ORIGINAL_LABEL_DIR: Final[Path] = DVC_DATASETS_DIR / "combined" / "YOLO" / "labels"
+ORIGINAL_IMAGE_DIR: Final[Path] = DATASETS_DIR / "combined" / "YOLO" / "images"
+ORIGINAL_LABEL_DIR: Final[Path] = DATASETS_DIR / "combined" / "YOLO" / "labels"
 
 GROUND_TRUTH_CSV_DIR: Final[Path] = DATA_DIR / "ground_truth_csvs"
 BASE_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_base_model"

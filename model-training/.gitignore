@@ -177,7 +177,5 @@ cython_debug/
 # Mac stuff
 **/.DS_Store
 
-# dvc-tracked files and folders
-/data
-/models
-/datasets
+# training results
+/runs

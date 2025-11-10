@@ -1,0 +1,17 @@
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ./datasets/combined_preprocessed/YOLO/
+
+# Single folder with all images - YOLO will auto-split
+train: autosplit_train.txt
+val: autosplit_val.txt
+test: autosplit_test.txt
+
+# Number of classes
+nc: 2
+
+channels: 3
+
+# Class names
+names:
+  0: bicycle
+  1: saddle
