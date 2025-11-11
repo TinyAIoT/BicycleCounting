@@ -1,6 +1,6 @@
 # MCU Bicycle Counting
 
-![Abstract Architecture](.assets/abstract_architecture.jpeg)
+![Abstract Architecture](.assets/setup.png)
 
 Within this project, microcontroller units (MCUs) were utilized in combination with quantized object detection models.
 
