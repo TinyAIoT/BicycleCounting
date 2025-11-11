@@ -106,15 +106,36 @@ void setup() {
   int16_t state = radio.begin();
   debug(state != RADIOLIB_ERR_NONE, F("Initialise radio failed"), state, true);
 
+  // SX1262 rf switch order: setRfSwitchPins(rxEn, txEn);
+  radio.setRfSwitchPins(38, RADIOLIB_NC);
+  
   // Setup the OTAA session information
-  state = node.beginOTAA(joinEUI, devEUI, appKey, appKey);
+  state = node.beginOTAA(joinEUI, devEUI, nwkKey, appKey);
+  // node.beginOTAA(joinEUI, devEUI, nwkKey, appKey);
   debug(state != RADIOLIB_ERR_NONE, F("Initialise node failed"), state, true);
 
   Serial.println(F("Join ('login') the LoRaWAN Network"));
   state = node.activateOTAA();
   debug(state != RADIOLIB_LORAWAN_NEW_SESSION, F("Join failed"), state, true);
 
-  Serial.println(F("LoRaWan is eady!\n"));
+  // while(1)
+  // {
+  //   state = node.activateOTAA(LORAWAN_UPLINK_DATA_RATE);
+  //   if(state == RADIOLIB_LORAWAN_NEW_SESSION) break;
+  //   debug(state!= RADIOLIB_LORAWAN_NEW_SESSION, F("Join failed"), state, true);
+  //   delay(15000);
+  // }
+
+  // // Disable the ADR algorithm (on by default which is preferable)
+  // node.setADR(false);
+
+  // // Set a fixed datarate
+  // node.setDatarate(LORAWAN_UPLINK_DATA_RATE);
+
+  // // Manages uplink intervals to the TTN Fair Use Policy
+  // node.setDutyCycle(false);
+
+  Serial.println(F("LoRaWan is Ready!\n"));
 
   Serial.println("\n Starting BLE Server now.");
 

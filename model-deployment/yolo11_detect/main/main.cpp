@@ -36,9 +36,9 @@ std::string create_json_payload(const std::list<dl::detect::result_t>& detect_re
         return "";
     }
 
-    // 1. Add static and timestamp information
-    cJSON_AddStringToObject(root, "device_id", "cam-01");
-    cJSON_AddStringToObject(root, "location", "placeholder-location");
+    // // 1. Add static and timestamp information
+    // cJSON_AddStringToObject(root, "device_id", "cam-01");
+    // cJSON_AddStringToObject(root, "location", "placeholder-location");
 
     // 2. Create the predictions array
     cJSON *predictions = cJSON_CreateArray();
@@ -53,18 +53,18 @@ std::string create_json_payload(const std::list<dl::detect::result_t>& detect_re
     for (const auto& res : detect_results) {
         if (res.score >= confidence_threshold) {
             total_detected++;
-            cJSON *pred_obj = cJSON_CreateObject();
-            // cJSON_AddNumberToObject(pred_obj, "category", res.category);
-            cJSON_AddNumberToObject(pred_obj, "confidence", res.score);
+            // cJSON *pred_obj = cJSON_CreateObject();
+            // // cJSON_AddNumberToObject(pred_obj, "category", res.category);
+            // cJSON_AddNumberToObject(pred_obj, "confidence", res.score);
 
-            cJSON *bbox = cJSON_CreateArray();
-            cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[0]));
-            cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[1]));
-            cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[2]));
-            cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[3]));
-            cJSON_AddItemToObject(pred_obj, "bbox", bbox);
+            // cJSON *bbox = cJSON_CreateArray();
+            // cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[0]));
+            // cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[1]));
+            // cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[2]));
+            // cJSON_AddItemToArray(bbox, cJSON_CreateNumber(res.box[3]));
+            // cJSON_AddItemToObject(pred_obj, "bbox", bbox);
 
-            cJSON_AddItemToArray(predictions, pred_obj);
+            // cJSON_AddItemToArray(predictions, pred_obj);
         }
     }
 

@@ -44,8 +44,6 @@ This sub-repository contains all the code required for model conversion & compre
 
       python -m model_conversion.visualize_evaluation --class_name bicycle  
 
-- Optional: Alternatively, you can run the `model_deployment.ipynb` notebook to perform most of the steps from above. You might need to change some parameters in the notebook.
-
 ## Deployment Requirements
 - Ensure you have generated the `.espdl` file, which when doing the steps above is automatically placed it in the `model-deployment/coco_detect/models/` folder
 - You can make a prediction on one image with this ESP32S3 script. To change the image, copy an image of size 640x640 named bikes.jpg into `model-deployment/yolo11_detect/main/`.
@@ -69,6 +67,9 @@ idf.py fullclean build flash monitor
 ```
 
 You can also use the [VS Code ESP-IDF Extension](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/) for building, flashing, and monitoring.
+
+### Data Transmission
+To send data to a BLE Client that transmits it via LoRaWAN to TTN you need to set up a respective device. See `../sketches/lorawan_send/README.md` for details. 
 
 ### Bugs before build
 - if the build is crashing, it might be due to a too big image. Reduce the size with the help of the `model_deployment.ipynb` or some other software. The yolo11n is trained on images of size 640x640. Smaller resolutions also work.

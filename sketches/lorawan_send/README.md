@@ -28,17 +28,17 @@ It allows BLE clients to send messages to the ESP32, which then forwards them vi
 ## Requirements
 - ESP32 board (e.g., XIAO ESP32S3, ESP32 DevKit, etc.)
 - SX1262 LoRa module (SPI connection)
-- [RadioLib](https://github.com/jgromes/RadioLib) library
+- [RadioLib](https://github.com/jgromes/RadioLib) library (we used v7.3.0)
 - Arduino IDE or PlatformIO
 
 ---
 
 ## Hardware Connections (default example)
 
-The default radio module pins are configured as:
+The radio module pins are configured as:
 ```cpp
-SX1262 radio = new Module(4, 1, 3, 2); 
-// NSS: 4, DIO1: 1, NRST: 3, BUSY: 2
+SX1262 radio = new Module(41, 39, 42, 40); 
+// NSS: 41, DIO1: 39, NRST: 42, BUSY: 40
 
 // If you’re using a RadioBoard, you can enable:
 
