@@ -28,20 +28,6 @@ The following software stack was used:
 - [ESP-PPQ](https://github.com/espressif/esp-ppq/tree/master) (model compression)
 - Arduino
 
-**Web Application**
-
-Frontend: 
-- Next.js 15.3.0
-- Language: TypeScript 5
-- Styling: TailwindCSS 4 with shadcn/ui components
-
-Backend & Database:
-- Runtime: Node.js with Next.js API Routes
-- Database: PostgreSQL with pg driver
-
-Infrastructure:
-- Vercel Platform
-
 **Sketches**
 - Arduino IDE
 
@@ -56,7 +42,6 @@ A snapshot of the images used for model training can be found in ``./model-train
 │   ├── model_training      // main directory containing experiment code
 │   ├── models              // trained and loaded models
 │   └── notebooks           // Jupyter notebooks for local experimentation
-├── webapplication          // Webapp to display collected data
 ├── model-deployment        // Model deployment files for ESP32-S3
 ├── cad                     // CAD files for 3D-printable case
 └── sketches                // Arduino Sketches for MCUs
@@ -71,9 +56,8 @@ The project workflow was as follows (if you want to re-produce the results or re
 2. ``model-training`` - Train/Fine-tune model utilizing the images collected from `sketches` scripts
 3. ``model-deployment`` (``model_conversion`` package) - Convert and compress the fine-tuned YOLO model
 4. ``model-deployment`` (``yolo11_detect``) - Build the ESP-IDF project and deploy quantized model on hardware; send model predictions via BLE
-5. ``webapplication`` - Setup web application for tracking collected data from MCUs
-6. ``sketches`` (``lorawan_send`` package) - Receive model predictions via BLE and forward results via LoRaWAN to TNN node, which get fetched from the web application
-7. (``cad`` - Use/Customize 3D-printable case (e.g., with [Tinkercad](https://www.tinkercad.com/)) to have an out-of-the-box usable mounting solution; optional)
+5. ``sketches`` (``lorawan_send`` package) - Receive model predictions via BLE and forward results via LoRaWAN to TNN node, which get fetched from the web application
+6. (``cad`` - Use/Customize 3D-printable case (e.g., with [Tinkercad](https://www.tinkercad.com/)) to have an out-of-the-box usable mounting solution; optional)
 
 
 # Licence
