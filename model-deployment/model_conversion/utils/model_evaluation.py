@@ -12,11 +12,11 @@ from ultralytics import YOLO
 from ultralytics.engine.results import Results
 from tqdm import tqdm
 
-from model_deployment.core.paths import (
+from model_conversion.core.paths import (
     CALIBRATION_IMAGE_DIR, BASE_MODEL_PRED_DIR, GROUND_TRUTH_CSV_DIR,
     QUANTIZED_MODEL_PRED_DIR
 )
-from model_deployment.core.constants import (
+from model_conversion.core.constants import (
     CONF_THRESHOLD, IOU_THRESHOLD, MAX_DETECTIONS, CLASS_NAMES, MODEL_MEAN,
     MODEL_STD, MODEL_INPUT_SHAPE
 )

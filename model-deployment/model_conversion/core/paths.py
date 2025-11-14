@@ -13,14 +13,14 @@ UTILS_DIR: Final[Path] = ROOT_DIR / "utils"
 
 
 CALIBRATION_IMAGE_DIR: Final[Path] = DATA_DIR / "calib_images_compressed"
-ORIGINAL_IMAGE_DIR: Final[Path] = DATASETS_DIR / "combined" / "YOLO" / "images"
-ORIGINAL_LABEL_DIR: Final[Path] = DATASETS_DIR / "combined" / "YOLO" / "labels"
+ORIGINAL_IMAGE_DIR: Final[Path] = DATASETS_DIR / "combined_preprocessed" / "YOLO" / "images"
+ORIGINAL_LABEL_DIR: Final[Path] = DATASETS_DIR / "combined_preprocessed" / "YOLO" / "labels"
 
 GROUND_TRUTH_CSV_DIR: Final[Path] = DATA_DIR / "ground_truth_csvs"
 BASE_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_base_model"
 QUANTIZED_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_quantized_model"
 ESP_MODEL_PRED_DIR: Final[Path] = DATA_DIR / "preds_esp_model"
 
-BASE_MODEL_PT_PATH: Final[Path] = MODELS_DIR / "best.pt"
+BASE_MODEL_PT_PATH: Final[Path] = MODELS_DIR / "yolo11n.pt"
 ONNX_MODEL_PATH: Final[Path] = MODELS_DIR / "yolo11n.onnx"
-ESPDL_MODEL_PATH: Final[Path] = MODELS_DIR / "model.espdl"
+ESPDL_MODEL_PATH: Final[Path] = MODELS_DIR / "yolo11n.espdl"
