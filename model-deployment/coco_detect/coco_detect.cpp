@@ -26,6 +26,8 @@ Yolo11n::Yolo11n(const char *model_name)
                             dl::MEMORY_MANAGER_GREEDY,
                             nullptr,
                             param_copy);
+//     m_model->profile();
+//     vTaskDelay(pdMS_TO_TICKS(10)); // allow an idle task to run to not trigger watchdog due to long blocking time of model profiling
 #else
     char sd_path[256];
     snprintf(sd_path,

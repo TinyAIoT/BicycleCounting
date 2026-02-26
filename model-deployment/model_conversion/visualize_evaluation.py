@@ -12,12 +12,12 @@ from model_conversion.core.paths import (
 )
 from model_conversion.core.constants import CLASS_NAMES
 
-#PREDICTION_DIR = QUANTIZED_MODEL_PRED_DIR
-#PREDICTION_DIR = BASE_MODEL_PRED_DIR
-PREDICTION_DIR = ESP_MODEL_PRED_DIR
-#VISUALIZATION_OUTPUT_DIR = Path("./evaluation_visuals_quantized")
-#VISUALIZATION_OUTPUT_DIR = Path("./evaluation_visuals_base")
-VISUALIZATION_OUTPUT_DIR = Path("./evaluation_visuals_esp")
+PREDICTION_DIR = QUANTIZED_MODEL_PRED_DIR
+# PREDICTION_DIR = BASE_MODEL_PRED_DIR
+# PREDICTION_DIR = ESP_MODEL_PRED_DIR
+VISUALIZATION_OUTPUT_DIR = Path("./data/evaluation/visuals_quantized")
+# VISUALIZATION_OUTPUT_DIR = Path("./data/evaluation/visuals_base")
+# VISUALIZATION_OUTPUT_DIR = Path("./evaluation_visuals_esp")
 IOU_THRESHOLD = 0.50 # To visualize AP@50
 
 NAME_TO_ID = {v: k for k, v in CLASS_NAMES.items()}
@@ -25,6 +25,7 @@ NAME_TO_ID = {v: k for k, v in CLASS_NAMES.items()}
 GT_COLOR = (0, 255, 0)  # Green
 TP_COLOR = (255, 0, 0)  # Blue
 FP_COLOR = (0, 0, 255)  # Red
+FN_COLOR = (0, 255, 255)  # Yellow
 TEXT_COLOR = (0, 0, 0)  # Black
 
 
@@ -73,10 +74,11 @@ def draw_results_on_image(image_path, predictions, gt_boxes, gt_classes, gt_matc
     # Draw all Ground Truth boxes first (so they are in the background)
     for i, gt_box in enumerate(gt_boxes):
         x1, y1, x2, y2 = map(int, gt_box)
-        thickness = 4 if not gt_matched[i] else 2  # Unmatched GTs (FNs) are thicker
-        cv2.rectangle(image, (x1, y1), (x2, y2), GT_COLOR, thickness)
+        color = FN_COLOR if not gt_matched[i] else GT_COLOR  # Unmatched GTs (FNs) are yellow
+        label = "FN" if not gt_matched[i] else "GT"  # Unmatched GTs (FNs) are yellow
+        cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
         class_name = CLASS_NAMES.get(int(gt_classes[i]), "Unknown")
-        cv2.putText(image, f"GT: {class_name}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, GT_COLOR, 2)
+        cv2.putText(image, f"{label}: {class_name}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
     # Draw all Prediction boxes
     for pred in predictions:
@@ -87,6 +89,9 @@ def draw_results_on_image(image_path, predictions, gt_boxes, gt_classes, gt_matc
         if pred['status'] == 'TP':
             color = TP_COLOR
             label = f"TP: {class_name} ({conf:.2f}, IoU:{pred['iou']:.2f})"
+        # if pred['status'] == 'FN':
+        #     color = FN_COLOR
+        #     label = f"FN: {class_name}"
         else:
             color = FP_COLOR
             label = f"FP: {class_name} ({conf:.2f})"
