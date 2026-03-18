@@ -70,6 +70,7 @@ which is licensed under the same terms.
 
 # Cite
 
+```
 @inproceedings{stenkamp2026bikecount,
 author = {Stenkamp, Jan and Hunke, Mathis and Karatas, Cem and Knaden, Christoph and Naebers, Paul and Zhao, Lige Karic, Benjamin and Gieseke, Fabian and Herrmann, Nina},
 title = {Counting Parked Bicycles on the Edge - A TinyML Smart City Application},
@@ -78,6 +79,7 @@ doi = {10.1145/3774906.3802788},
 booktitle = {ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
 series = {SenSys '26}
 }
+```
 
 # Contributing
 Contributions are welcome! Please open issues or submit pull requests.
