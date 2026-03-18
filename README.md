@@ -8,6 +8,8 @@ The goal of this project was to enable the real-time on-device bicycle detection
 
 The repository is organized as a multi-component project (mono repository). See the [repository structure](#mono-repository-structure) for details.
 
+The work was published as an experience paper at the ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems (SenSys '26). See details how to cite below. 
+
 # Hardware
 
 We used the [XIAO ESP32-S3 Sense](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/) MCU with the [XIAO Wio-SX1262 LoRa module](https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html). The default camera module of the ESP32-S3 was replaced by the OV5640 21mm 160 degrees one, which enabled the capturing of wider images and higher resolutions.
@@ -66,6 +68,16 @@ This software is licensed under the [GNU Affero General Public License v3.0](./L
 This project makes use of [Ultralytics](https://github.com/ultralytics/ultralytics),
 which is licensed under the same terms.
 
+# Cite
+
+@inproceedings{stenkamp2026bikecount,
+author = {Stenkamp, Jan and Hunke, Mathis and Karatas, Cem and Knaden, Christoph and Naebers, Paul and Zhao, Lige Karic, Benjamin and Gieseke, Fabian and Herrmann, Nina},
+title = {Counting Parked Bicycles on the Edge - A TinyML Smart City Application},
+year = {2026},
+doi = {10.1145/3774906.3802788},
+booktitle = {ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
+series = {SenSys '26}
+}
 
 # Contributing
 Contributions are welcome! Please open issues or submit pull requests.
